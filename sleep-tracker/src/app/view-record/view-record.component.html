@@ -1,4 +1,37 @@
 <hr>
 <div class="container">
-  <h1>view record works!</h1>
+  <h1>View records.</h1>
+  <hr>
+  <div class="row>">
+    <div class="col-md-5">
+    <div class="panel panel-default">
+      <!-- Default panel contents -->
+      <div class="panel-heading">Users</div>
+      <div class="panel-body">
+        <p>Distinct users.</p>
+      </div>
+
+      <!-- Table -->
+      <table class="table">
+        <thead>
+        <tr>
+          <th>Name</th>
+          <th>Sex</th>
+          <th>No.</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr *ngFor="let o of getDistinctValues()">
+          <td> {{ o.name }}</td>
+          <td>{{ o.sex }}</td>
+          <td><span class="badge">{{ o.recordNumber }}</span></td>
+        </tr>
+        </tbody>
+      </table>
+    </div>
+    </div>
+    <div class="col-md-5">
+      <app-chart></app-chart>
+    </div>
+  </div>
 </div>

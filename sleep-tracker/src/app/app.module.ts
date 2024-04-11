@@ -9,6 +9,11 @@ import { ViewRecordComponent } from './view-record/view-record.component';
 import { AboutComponent } from './about/about.component';
 import { TrackFormComponent } from './track/track-form/track-form.component';
 import {FormsModule, ReactiveFormsModule} from '@angular/forms';
+import {SleepDataService} from './sleep-data.service';
+import {HttpClientModule} from '@angular/common/http';
+import {WebDataService} from './web-data.service';
+import { ChartComponent } from './view-record/chart/chart.component';
+import { NgxEchartsModule } from 'ngx-echarts';
 
 @NgModule({
   declarations: [
@@ -17,12 +22,21 @@ import {FormsModule, ReactiveFormsModule} from '@angular/forms';
     TrackComponent,
     ViewRecordComponent,
     AboutComponent,
-    TrackFormComponent
+    TrackFormComponent,
+    ChartComponent
   ],
   imports: [
-    BrowserModule, AppRoutingModule, FormsModule
+    BrowserModule, AppRoutingModule, FormsModule, HttpClientModule,
+    NgxEchartsModule.forRoot({
+      /**
+       * This will import all modules from echarts.
+       * If you only need custom modules,
+       * please refer to [Custom Build] section.
+       */
+      echarts: () => import('echarts'), // or import('./path-to-my-custom-echarts')
+    })
   ],
-  providers: [],
+  providers: [SleepDataService, WebDataService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

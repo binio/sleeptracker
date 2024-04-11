@@ -5,7 +5,7 @@ import {ViewRecordComponent} from './view-record/view-record.component';
 import {AboutComponent} from './about/about.component';
 
 const routes: Routes = [
-  {path: '', redirectTo: '/recipes', pathMatch: 'full'},
+  {path: '', redirectTo: '/track', pathMatch: 'full'},
   {path: 'track', component: TrackComponent},
   {path: 'view', component: ViewRecordComponent },
   {path: 'about', component: AboutComponent }
