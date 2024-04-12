@@ -14,6 +14,7 @@ import {HttpClientModule} from '@angular/common/http';
 import {WebDataService} from './web-data.service';
 import { ChartComponent } from './view-record/chart/chart.component';
 import { NgxEchartsModule } from 'ngx-echarts';
+import {EchartService} from './services/echart.service';
 
 @NgModule({
   declarations: [
@@ -36,7 +37,7 @@ import { NgxEchartsModule } from 'ngx-echarts';
       echarts: () => import('echarts'), // or import('./path-to-my-custom-echarts')
     })
   ],
-  providers: [SleepDataService, WebDataService],
+  providers: [SleepDataService, WebDataService, EchartService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

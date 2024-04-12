@@ -22,14 +22,27 @@ export class TrackFormComponent {
       form.value.userName,
       form.value.sex,
       form.value.sleepAmount,
-      Date.now()
+      this.getCurrentDate()
       );
     this.sleepDataService.addRecord(record);
     this.webDataService.storeSleepData(this.sleepDataService.sleepData.slice())
-    console.log(this.sleepDataService.getAll());
-    console.log(form);
+    //console.log(this.sleepDataService.getAll());
+    //console.log(form);
   }
 
   onCancel(): void {}
+
+  getCurrentDate(){
+    const currentDate = new Date();
+
+    // Extract year, month, and day
+    const year = currentDate.getFullYear();
+    const month = ('0' + (currentDate.getMonth() + 1)).slice(-2); // Adding 1 because getMonth() returns zero-based month index
+    const day = ('0' + currentDate.getDate()).slice(-2);
+
+    // Assemble the date string in yyyy-mm-dd format
+    const formattedDate = year + '-' + month + '-' + day;
+    return formattedDate;
+  }
 
 }

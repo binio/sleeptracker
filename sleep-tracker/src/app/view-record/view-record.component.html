@@ -22,7 +22,7 @@
         </thead>
         <tbody>
         <tr *ngFor="let o of getDistinctValues()">
-          <td> {{ o.name }}</td>
+          <td> <a (click)="changeData(o.name)">{{ o.name }}</a></td>
           <td>{{ o.sex }}</td>
           <td><span class="badge">{{ o.recordNumber }}</span></td>
         </tr>
@@ -31,7 +31,15 @@
     </div>
     </div>
     <div class="col-md-5">
-      <app-chart></app-chart>
+      <!--start-->
+      <div class="panel panel-default">
+        <!-- Default panel contents -->
+        <div class="panel-heading">User: {{ userName }} sleep data</div>
+        <div class="panel-body">
+        </div>
+        <div echarts [options]="chartOption" class="demo-chart" id="demo-chart"></div>
+      </div>
+      <!--stop-->
     </div>
   </div>
 </div>
