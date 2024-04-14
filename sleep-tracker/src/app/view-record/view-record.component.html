@@ -32,14 +32,15 @@
     </div>
     <div class="col-md-5">
       <!--start-->
-      <div class="panel panel-default">
-        <!-- Default panel contents -->
-        <div class="panel-heading">User: {{ userName }} sleep data</div>
-        <div class="panel-body">
-        </div>
-        <div echarts [options]="chartOption" class="demo-chart" id="demo-chart"></div>
-      </div>
+<!--      <div class="panel panel-default">-->
+<!--        &lt;!&ndash; Default panel contents &ndash;&gt;-->
+<!--        <div class="panel-heading">User: {{ userName }} sleep data</div>-->
+<!--        <div class="panel-body">-->
+<!--        </div>-->
+<!--        <div echarts [options]="chartOption" class="demo-chart" id="demo-chart"></div>-->
+<!--      </div>-->
       <!--stop-->
+      <app-chart [chartData]="chartData"></app-chart>
     </div>
   </div>
 </div>

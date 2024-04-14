@@ -1,4 +1,4 @@
-import {Component, OnInit} from '@angular/core';
+import {Component, Input, OnInit, Output} from '@angular/core';
 import { NgxEchartsDirective, provideEcharts } from 'ngx-echarts';
 import { EChartsOption } from 'echarts';
 import {EchartService} from '../../services/echart.service';
@@ -10,10 +10,11 @@ import {BasicChartModel} from '../../services/echart.model';
   templateUrl: './chart.component.html',
   styleUrl: './chart.component.css'
 })
-export class ChartComponent implements OnInit{
+export class ChartComponent implements OnInit {
 
   subscription: Subscription;
   chartOption: EChartsOption;
+  @Input() chartData: BasicChartModel[];
   constructor(private echartService: EchartService) {
 
     this.chartOption  = {
@@ -51,10 +52,11 @@ export class ChartComponent implements OnInit{
       {"name":"Sat","value":15},
       {"name":"Sun","value":9}
     ];
+    console.log(this.chartData);
     this.subscription = this.echartService.getData(dataNew).subscribe(
       data => {
         //console.log(data);
-        this.initChart(data);}
+        this.initChart(this.chartData);}
     );
   }
   changeChartB() {

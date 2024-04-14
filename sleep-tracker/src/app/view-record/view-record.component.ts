@@ -1,12 +1,9 @@
-import {Component, OnInit} from '@angular/core';
+import {Component, OnInit, ViewChild} from '@angular/core';
 import {SleepDataService} from '../sleep-data.service';
-import {SleepRecord} from '../sleep-record.model';
 import {WebDataService} from '../web-data.service';
-import {from, Subscription} from 'rxjs';
-import {EchartService} from '../services/echart.service';
 import {EChartsOption} from 'echarts';
 import {BasicChartModel} from '../services/echart.model';
-import {Data} from './data.modeel';
+import {ChartComponent} from './chart/chart.component';
 
 @Component({
   selector: 'app-view-record',
@@ -14,16 +11,14 @@ import {Data} from './data.modeel';
   styleUrl: './view-record.component.css'
 })
 export class ViewRecordComponent implements OnInit{
-
-  subscription: Subscription;
+  @ViewChild(ChartComponent) child:ChartComponent;
+  chartData:BasicChartModel[];
   chartOption: EChartsOption;
-  records: SleepRecord[];
   userName: string = '';
 
   constructor(
     private webDataService: WebDataService,
     private sleepDataService: SleepDataService,
-    private echartService: EchartService
   )  {
     this.chartOption  = {
       xAxis: {
@@ -53,11 +48,6 @@ export class ViewRecordComponent implements OnInit{
       a => console.log(a)
     );
     this.getDistinctValues();
-    this.subscription = this.echartService.getData([]).subscribe(
-      data => {
-        //console.log(data);
-        this.initChart(data);}
-    );
 
   }
 
@@ -76,7 +66,9 @@ export class ViewRecordComponent implements OnInit{
         userRecords.push({name:date, value:amount});
       }
     });
-    return this.mergeAndSumData(userRecords);
+    this.chartData = this.mergeAndSumData(userRecords);
+    this.child.initChart(this.chartData);
+    return this.chartData;
   }
 
 
@@ -94,7 +86,6 @@ export class ViewRecordComponent implements OnInit{
         this.updateField(uniqueNames, 'recordNumber', name, 1)
       }
     });
-    //console.log(uniqueNames);
     return uniqueNames;
   }
 
@@ -110,31 +101,7 @@ export class ViewRecordComponent implements OnInit{
   changeData(name: string,) {
     const dataNew = this.getDataForName(name);
     this.userName = name;
-    this.subscription = this.echartService.getData(dataNew).subscribe(
-      data => {
-        //console.log(data);
-        this.initChart(data);}
-    );
-  }
-  initChart(chartData: BasicChartModel[]){
-    this.chartOption = {
-      tooltip: {
-        show: true
-      },
-      xAxis: {
-        type: 'category',
-        data: chartData.map(m => ({
-          value: m.name}))
-      },
-      yAxis: {
-        type: 'value'
-      },
-      series:[{
-        type: 'bar',
-        data: chartData.map(m => ({
-          value: m.value}))
-      }]
-    }
+
   }
 
 
